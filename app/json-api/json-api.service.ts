@@ -100,11 +100,10 @@ export class JsonApiService {
     public getResource(
         type: string,
         id: string,
-        includes?: Array<Array<string>>,
-        params?: {[name: string]: string}
+        includes: Array<Array<string>> = [],
+        params: {[name: string]: string} = {}
     ) {
         let url = this.env.apiUrl + `/${type}/${id}`;
-        // let params: {[name: string]: string} = {};
 
         if (includes) {
             params["include"] = this.stringifyIncludeParam(includes);
@@ -116,17 +115,16 @@ export class JsonApiService {
 
         return this.http.get(url)
                    .toPromise()
-                   .then(response => response.json().data)
+                   .then(response => response.json())
                    .catch(this.handleError);
     }
 
     public getResources(
         type: string,
-        includes?: Array<Array<string>>,
-        params?: {[name: string]: string}
+        includes: Array<Array<string>> = [],
+        params: {[name: string]: string} = {}
     ) {
         let url = this.env.apiUrl + `/${type}`;
-        // let params: {[name: string]: string} = {};
 
         if (includes) {
             params["include"] = this.stringifyIncludeParam(includes);
@@ -138,7 +136,7 @@ export class JsonApiService {
 
         return this.http.get(url)
                    .toPromise()
-                   .then(response => response.json().data)
+                   .then(response => response.json())
                    .catch(this.handleError);
     }
 

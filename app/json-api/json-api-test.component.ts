@@ -19,6 +19,11 @@ export class JsonApiTestComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.people = this.store.getResources('articles', [['author'], ['comments', 'author']]);
+    this.articles = this.store.getResources(
+      'articles',
+      [['author'], ['comments', 'author']]
+    );
+    console.log("/articles?include=author,comments.author");
+    console.log(this.articles);
   }
 }

@@ -9,7 +9,8 @@ import { JsonApiTestComponent } from './json-api/json-api-test.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/dashboard',
+    // redirectTo: '/dashboard',
+    redirectTo: '/json-api-test',
     pathMatch: 'full'
   },
   {

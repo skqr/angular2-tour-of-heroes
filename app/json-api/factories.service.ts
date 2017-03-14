@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ModelResource, ModelResMap,
-        ResModelHydratorProvider, ResModelHydrator} from './jsonApi.service';
-import {JsonApiResObj} from './jsonApi';
+        ResModelHydratorProvider, ResModelHydrator} from './json-api.service';
+import {JsonApiResObj} from './json-api';
 import {Location, Person} from './models';
 import _ = require('lodash');
 
@@ -34,15 +34,13 @@ class LocationResMap implements ModelResource {
 
 
 @Injectable()
-export class AssetsResModelHydratorProvider implements ResModelHydratorProvider {
+export class HeroesResModelHydratorProvider implements ResModelHydratorProvider {
     private resources: {[resType: string]: ModelResource} = {
         'person': new PersonResMap(),
         'location': new LocationResMap()
     };
 
     public getHydrator(resType: string): ResModelHydrator {
-        if (resType == "assets") resType = "computer";  // TODO: Unificar los tipos.
-
         if (resType in this.resources) return new ResModelHydrator(this.resources[resType]);  // Or null.
     }
 }

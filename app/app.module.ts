@@ -12,6 +12,12 @@ import { AppRoutingModule, routedComponents } from './app-routing.module';
 import { HeroService } from './hero.service';
 import { HeroSearchComponent } from './hero-search.component';
 
+import { Environment } from './json-api/env.service';
+import { JsonApiService, ResourceDbService,
+         ResourceStoreService, ResModelHydratorProvider } from './json-api/json-api.service';
+import { HeroesResModelHydratorProvider } from './json-api/factories.service';
+
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -26,7 +32,14 @@ import { HeroSearchComponent } from './hero-search.component';
     routedComponents
   ],
   providers: [
-    HeroService
+    HeroService,
+    { provide: Window, useValue: window },
+    Environment,
+    ResourceStoreService,
+    JsonApiService,
+    ResourceDbService,
+    HeroesResModelHydratorProvider,
+    { provide: ResModelHydratorProvider, useExisting: HeroesResModelHydratorProvider }
   ],
   bootstrap: [AppComponent]
 })

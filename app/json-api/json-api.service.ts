@@ -121,17 +121,12 @@ export class JsonApiService {
     }
 
     public getResources(
-      type: string,
-      includes?: Array<Array<string>>,
-      params: {[name: string]: string}
+        type: string,
+        includes?: Array<Array<string>>,
+        params?: {[name: string]: string}
     ) {
         let url = this.env.apiUrl + `/${type}`;
         // let params: {[name: string]: string} = {};
-
-        console.log("includes");
-        console.log(includes);
-        if (includes) console.log("includes!");
-        if (params) console.log("params!");
 
         if (includes) {
             params["include"] = this.stringifyIncludeParam(includes);
@@ -140,9 +135,6 @@ export class JsonApiService {
         if (params) {
            url += "?" + this.stringifyQueryParams(params);
         }
-
-        console.log("url");
-        console.log(url);
 
         return this.http.get(url)
                    .toPromise()
@@ -217,10 +209,10 @@ export class ResourceStoreService {
      * .getResource("person", 4, includes: [["company", "location"], ["parents"]])
      */
     public getResource(
-      resType: string,
-      id: string,
-      includes?: Array<Array<string>>,
-      params?: {[name: string]: string}
+        resType: string,
+        id: string,
+        includes?: Array<Array<string>>,
+        params?: {[name: string]: string}
     ): any {
         let resModel: JsonApiResModel = this.fetchResModel(resType, id);
 
@@ -239,14 +231,11 @@ export class ResourceStoreService {
      * .getResource("person", includes: [["company", "location"], ["parents"]])
      */
     public getResources(
-      resType: string,
-      includes?: Array<Array<string>>,
-      params?: {[name: string]: string}
+        resType: string,
+        includes?: Array<Array<string>>,
+        params?: {[name: string]: string}
     ): any {
         let resModels: Array<JsonApiResModel> = [];
-
-        console.log("includes");
-        console.log(includes);
 
         this.jsonApiService.getResources(resType, includes).then((resDoc: JsonApiDoc) => {
             _.forEach(resDoc.data, (resObj: JsonApiResObj) => {

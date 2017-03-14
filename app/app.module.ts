@@ -23,8 +23,9 @@ import { HeroesResModelHydratorProvider } from './json-api/factories.service';
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpModule,
-    InMemoryWebApiModule.forRoot(InMemoryDataService, { delay: 600 })
+    HttpModule
+    // HttpModule,
+    // InMemoryWebApiModule.forRoot(InMemoryDataService, { delay: 600 })
   ],
   declarations: [
     AppComponent,

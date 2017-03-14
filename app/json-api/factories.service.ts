@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {ModelResource, ModelResMap,
-        ResModelHydratorProvider, ResModelHydrator} from './json-api.service';
-import {JsonApiResObj} from './json-api';
-import {Location, Person} from './models';
+import { Injectable } from '@angular/core';
+import { ModelResource, ModelResMap,
+         ResModelHydratorProvider, ResModelHydrator } from './json-api.service';
+import { JsonApiResObj } from './json-api';
+import { Location, Person, Article, Comment } from './models';
 import * as _ from "lodash";
 
 
@@ -11,7 +11,9 @@ class PersonResMap implements ModelResource {
 
     public map: ModelResMap = {
         properties: {
-            name: 'name'
+            firstName: 'first-name',
+            lastName: 'last-name',
+            twitter: 'twitter'
         },
         relationships: {
             toOne: {
@@ -33,11 +35,48 @@ class LocationResMap implements ModelResource {
 }
 
 
+class CommentResMap implements ModelResource {
+    public model: any = Comment;
+
+    public map: ModelResMap = {
+        properties: {
+            body: 'body'
+        },
+        relationships: {
+            toOne: {
+                author: 'author'
+            }
+        }
+    };
+}
+
+
+class ArticleResMap implements ModelResource {
+    public model: any = Article;
+
+    public map: ModelResMap = {
+        properties: {
+            title: 'title'
+        },
+        relationships: {
+            toOne: {
+                author: 'author'
+            },
+            toMany: {
+                comments: 'comments'
+            }
+        }
+    };
+}
+
+
 @Injectable()
 export class HeroesResModelHydratorProvider implements ResModelHydratorProvider {
     private resources: {[resType: string]: ModelResource} = {
+        'locations': new LocationResMap(),
         'people': new PersonResMap(),
-        'locations': new LocationResMap()
+        'articles': new ArticleResMap(),
+        'comments': new CommentResMap()
     };
 
     public getHydrator(resType: string): ResModelHydrator {

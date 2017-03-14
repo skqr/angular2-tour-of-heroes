@@ -3,7 +3,9 @@ import { Headers, Http } from "@angular/http";
 import "rxjs/add/operator/toPromise";
 import { Environment } from './env.service';
 import { JsonApiDoc, JsonApiResObj, JsonApiRelObj, JsonApiResModel } from "./json-api";
+// import _ = require('lodash');
 import * as _ from "lodash";
+// import _ from 'lodash';
 
 
 export class ResModelFactoryNotFoundError extends Error {}
@@ -116,7 +118,7 @@ export class JsonApiService {
     }
 
     public getResources(type: string, includes?: Array<Array<string>>) {
-        let url = this.env + `/${type}`;
+        let url = this.env.apiUrl + `/${type}`;
         let params: {[name: string]: string} = {};
 
         if (includes) {

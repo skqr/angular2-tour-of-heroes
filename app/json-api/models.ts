@@ -1,4 +1,4 @@
-import {JsonApiResModel} from './jsonApi';
+import {JsonApiResModel} from './json-api';
 
 
 export class Location implements JsonApiResModel {

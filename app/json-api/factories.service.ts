@@ -3,7 +3,9 @@ import {ModelResource, ModelResMap,
         ResModelHydratorProvider, ResModelHydrator} from './json-api.service';
 import {JsonApiResObj} from './json-api';
 import {Location, Person} from './models';
-import _ = require('lodash');
+// import _ = require('lodash');
+import * as _ from "lodash";
+// import _ from 'lodash';
 
 
 class PersonResMap implements ModelResource {
@@ -36,8 +38,8 @@ class LocationResMap implements ModelResource {
 @Injectable()
 export class HeroesResModelHydratorProvider implements ResModelHydratorProvider {
     private resources: {[resType: string]: ModelResource} = {
-        'person': new PersonResMap(),
-        'location': new LocationResMap()
+        'people': new PersonResMap(),
+        'locations': new LocationResMap()
     };
 
     public getHydrator(resType: string): ResModelHydrator {

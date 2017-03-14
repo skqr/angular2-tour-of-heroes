@@ -1,5 +1,5 @@
-// import { ResourceDbService } from './jsonApi.service';
-// import { JsonApiResModel } from './jsonApi';
+// import { ResourceDbService } from './json-api.service';
+// import { JsonApiResModel } from './json-api';
 //
 // class MockResModel implements JsonApiResModel {
 //     constructor(

@@ -28,7 +28,8 @@ System.config({
 
     // other libraries
     'rxjs':                      'npm:rxjs',
-    'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js'
+    'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
+    'lodash' :                   'node_modules/lodash/lodash.js'
   },
   // packages tells the System loader how to load when no filename and/or no extension
   packages: {
@@ -39,5 +40,8 @@ System.config({
     // barrels
     // 'app/core':   { main: 'index'},
     // 'app/models': { main: 'index'},
+  },
+  meta: {
+    lodash: { format: 'amd' }
   }
 });

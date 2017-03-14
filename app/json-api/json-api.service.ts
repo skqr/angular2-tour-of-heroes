@@ -3,9 +3,7 @@ import { Headers, Http } from "@angular/http";
 import "rxjs/add/operator/toPromise";
 import { Environment } from './env.service';
 import { JsonApiDoc, JsonApiResObj, JsonApiRelObj, JsonApiResModel } from "./json-api";
-// import _ = require('lodash');
 import * as _ from "lodash";
-// import _ from 'lodash';
 
 
 export class ResModelFactoryNotFoundError extends Error {}
@@ -99,9 +97,14 @@ export class JsonApiService {
         private env: Environment
     ) {}
 
-    public getResource(type: string, id: string, includes?: Array<Array<string>>) {
+    public getResource(
+        type: string,
+        id: string,
+        includes?: Array<Array<string>>,
+        params?: {[name: string]: string}
+    ) {
         let url = this.env.apiUrl + `/${type}/${id}`;
-        let params: {[name: string]: string} = {};
+        // let params: {[name: string]: string} = {};
 
         if (includes) {
             params["include"] = this.stringifyIncludeParam(includes);
@@ -113,13 +116,22 @@ export class JsonApiService {
 
         return this.http.get(url)
                    .toPromise()
-                   .then(response => response.json())
+                   .then(response => response.json().data)
                    .catch(this.handleError);
     }
 
-    public getResources(type: string, includes?: Array<Array<string>>) {
+    public getResources(
+      type: string,
+      includes?: Array<Array<string>>,
+      params: {[name: string]: string}
+    ) {
         let url = this.env.apiUrl + `/${type}`;
-        let params: {[name: string]: string} = {};
+        // let params: {[name: string]: string} = {};
+
+        console.log("includes");
+        console.log(includes);
+        if (includes) console.log("includes!");
+        if (params) console.log("params!");
 
         if (includes) {
             params["include"] = this.stringifyIncludeParam(includes);
@@ -129,9 +141,12 @@ export class JsonApiService {
            url += "?" + this.stringifyQueryParams(params);
         }
 
+        console.log("url");
+        console.log(url);
+
         return this.http.get(url)
                    .toPromise()
-                   .then(response => response.json())
+                   .then(response => response.json().data)
                    .catch(this.handleError);
     }
 
@@ -201,7 +216,12 @@ export class ResourceStoreService {
      * // For a call to /api/v1/people/4?includes=company.location,parents
      * .getResource("person", 4, includes: [["company", "location"], ["parents"]])
      */
-    public getResource(resType: string, id: string, includes?: Array<Array<string>>): any {
+    public getResource(
+      resType: string,
+      id: string,
+      includes?: Array<Array<string>>,
+      params?: {[name: string]: string}
+    ): any {
         let resModel: JsonApiResModel = this.fetchResModel(resType, id);
 
         this.jsonApiService.getResource(resType, id, includes).then((resDoc: JsonApiDoc) => {
@@ -218,9 +238,15 @@ export class ResourceStoreService {
      * // For a call to /api/v1/people?includes=company.location,parents
      * .getResource("person", includes: [["company", "location"], ["parents"]])
      */
-    public getResources(resType: string, includes?: Array<Array<string>>): any {
-        // let resModel: JsonApiResModel = this.fetchResModel(resType, id);
+    public getResources(
+      resType: string,
+      includes?: Array<Array<string>>,
+      params?: {[name: string]: string}
+    ): any {
         let resModels: Array<JsonApiResModel> = [];
+
+        console.log("includes");
+        console.log(includes);
 
         this.jsonApiService.getResources(resType, includes).then((resDoc: JsonApiDoc) => {
             _.forEach(resDoc.data, (resObj: JsonApiResObj) => {

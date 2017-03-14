@@ -1,7 +1,5 @@
 import { Injectable } from "@angular/core";
-// import _ = require('lodash');
 import * as _ from "lodash";
-// import _ from 'lodash';
 
 
 @Injectable()
@@ -9,7 +7,7 @@ export class Environment {
     private NAMESPACE: string = "envVars";
 
     public envName: string = "dev";
-    public apiUrl: string = "http://localhost:5000";
+    public apiUrl: string = "http://localhost:3000";
 
     constructor(
         private _window: Window

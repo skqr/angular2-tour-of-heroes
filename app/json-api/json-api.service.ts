@@ -237,7 +237,7 @@ export class ResourceStoreService {
 
         this.jsonApiService.getResources(resType, includes).then((resDoc: JsonApiDoc) => {
             _.forEach(resDoc.data, (resObj: JsonApiResObj) => {
-                resModels.push(this.fetchResModel(resType, resObj.id));
+                resModels.push(this.fetchResModel(resObj.type, resObj.id));
                 this.fetchHydratedResModel(resObj);
             });
 
